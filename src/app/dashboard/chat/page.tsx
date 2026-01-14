@@ -1,4 +1,3 @@
-import { CONFIG } from 'src/config-global';
 
 import { ChatView } from 'src/sections/chat/view';
 

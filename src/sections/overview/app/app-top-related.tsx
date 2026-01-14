@@ -5,15 +5,13 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
-import { svgIconClasses } from '@mui/material/SvgIcon';
 
 import { useTabs } from 'src/hooks/use-tabs';
 
-import { fData, fCurrency, fShortenNumber } from 'src/utils/format-number';
+import { fShortenNumber } from 'src/utils/format-number';
 
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';

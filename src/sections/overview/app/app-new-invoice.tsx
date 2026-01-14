@@ -14,8 +14,6 @@ import TableCell from '@mui/material/TableCell';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
 
-import { fCurrency } from 'src/utils/format-number';
-
 import { Label } from 'src/components/label';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';

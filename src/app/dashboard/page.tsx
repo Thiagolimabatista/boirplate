@@ -1,4 +1,3 @@
-import { CONFIG } from 'src/config-global';
 
 import { OverviewAppView } from 'src/sections/overview/app/view';
 

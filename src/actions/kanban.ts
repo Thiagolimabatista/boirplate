@@ -4,8 +4,9 @@ import type { IKanban, IKanbanTask, IKanbanColumn } from 'src/types/kanban';
 import { useMemo } from 'react';
 import useSWR, { mutate } from 'swr';
 
-import { _mock } from 'src/_mock';
 import axios, { fetcher, endpoints } from 'src/utils/axios';
+
+import { _mock } from 'src/_mock';
 
 // ----------------------------------------------------------------------
 
@@ -170,8 +171,8 @@ export function useGetBoard() {
 
   const memoizedValue = useMemo(() => {
     // Usando dados mockados em vez da API
-    const tasks = MOCK_BOARD.tasks;
-    const columns = MOCK_BOARD.columns;
+    const {tasks} = MOCK_BOARD;
+    const {columns} = MOCK_BOARD;
 
     return {
       board: { tasks, columns },

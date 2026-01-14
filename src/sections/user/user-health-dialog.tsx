@@ -1,7 +1,5 @@
 import type { IUserItem } from 'src/types/user';
 
-import { useState } from 'react';
-
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
@@ -14,12 +12,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import LinearProgress from '@mui/material/LinearProgress';
 
-import { fNumber, fPercent } from 'src/utils/format-number';
+import { fNumber } from 'src/utils/format-number';
+
+import { getUserHealthData } from 'src/_mock/_user-health';
 
 import { Iconify } from 'src/components/iconify';
 import { Chart, useChart } from 'src/components/chart';
-
-import { getUserHealthData } from 'src/_mock/_user-health';
 
 // ----------------------------------------------------------------------
 

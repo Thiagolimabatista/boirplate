@@ -1,4 +1,3 @@
-import { CONFIG } from 'src/config-global';
 
 import { MailView } from 'src/sections/mail/view';
 

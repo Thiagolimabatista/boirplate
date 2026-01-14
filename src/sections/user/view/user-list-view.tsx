@@ -44,9 +44,9 @@ import {
 } from 'src/components/table';
 
 import { UserTableRow } from '../user-table-row';
+import { UserHealthDialog } from '../user-health-dialog';
 import { UserTableToolbar } from '../user-table-toolbar';
 import { UserTableFiltersResult } from '../user-table-filters-result';
-import { UserHealthDialog } from '../user-health-dialog';
 
 // ----------------------------------------------------------------------
 

@@ -7,7 +7,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { SeoIllustration } from 'src/assets/illustrations';
-import { _appAuthors, _appRelated, _appFeatured, _appInvoices, _appInstalled } from 'src/_mock';
+import { _appAuthors, _appFeatured, _appInvoices, _appInstalled } from 'src/_mock';
 
 import { svgColorClasses } from 'src/components/svg-color';
 
@@ -18,8 +18,6 @@ import { AppWelcome } from '../app-welcome';
 import { AppFeatured } from '../app-featured';
 import { AppNewInvoice } from '../app-new-invoice';
 import { AppTopAuthors } from '../app-top-authors';
-import { AppTopRelated } from '../app-top-related';
-import { AppAreaInstalled } from '../app-area-installed';
 import { AppWidgetSummary } from '../app-widget-summary';
 import { AppCurrentDownload } from '../app-current-download';
 import { AppTopInstalledCountries } from '../app-top-installed-countries';

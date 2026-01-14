@@ -1,4 +1,3 @@
-import { CONFIG } from 'src/config-global';
 
 import { PostListView } from 'src/sections/blog/view';
 

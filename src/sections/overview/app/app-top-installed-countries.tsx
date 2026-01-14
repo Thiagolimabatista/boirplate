@@ -8,8 +8,8 @@ import Typography from '@mui/material/Typography';
 
 import { fShortenNumber } from 'src/utils/format-number';
 
-import { Scrollbar } from 'src/components/scrollbar';
 import { Iconify } from 'src/components/iconify';
+import { Scrollbar } from 'src/components/scrollbar';
 
 // ----------------------------------------------------------------------
 
