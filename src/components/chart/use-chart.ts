@@ -199,7 +199,7 @@ export function useChart(options?: ChartOptions): ChartOptions {
     },
 
     /** **************************************
-     * Legend
+     * Legends
      *************************************** */
     legend: {
       show: false,
