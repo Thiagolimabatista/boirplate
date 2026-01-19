@@ -36,6 +36,16 @@ type AlertLevelData = {
   description: string;
 };
 
+type HealthThemeData = {
+  theme: string;
+  riskLevel: number; // 0-10
+};
+
+type TeamHealthData = {
+  teamName: string;
+  themes: HealthThemeData[];
+};
+
 export type UserHealthData = {
   userId: string;
   messagesCount: number;
@@ -46,6 +56,7 @@ export type UserHealthData = {
   topTopics: TopicData[];
   recommendations: RecommendationData[];
   alertLevel: AlertLevelData;
+  healthThemesByTeam: TeamHealthData[];
 };
 
 // ----------------------------------------------------------------------
@@ -96,6 +107,48 @@ const MOCK_HEALTH_DATA: Record<string, UserHealthData> = {
         title: 'Acompanhamento Preventivo',
         description:
           'Considere agendar uma conversa trimestral para manter o canal de comunicação aberto.',
+      },
+    ],
+    healthThemesByTeam: [
+      {
+        teamName: 'Desenvolvimento',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 2 },
+          { theme: 'Insatisfação com Salário', riskLevel: 3 },
+          { theme: 'Carga de Trabalho', riskLevel: 2 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 1 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 1 },
+        ],
+      },
+      {
+        teamName: 'Marketing',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 3 },
+          { theme: 'Insatisfação com Salário', riskLevel: 4 },
+          { theme: 'Carga de Trabalho', riskLevel: 5 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 2 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 3 },
+        ],
+      },
+      {
+        teamName: 'Vendas',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 1 },
+          { theme: 'Insatisfação com Salário', riskLevel: 2 },
+          { theme: 'Carga de Trabalho', riskLevel: 3 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 1 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 2 },
+        ],
+      },
+      {
+        teamName: 'Suporte',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 4 },
+          { theme: 'Insatisfação com Salário', riskLevel: 5 },
+          { theme: 'Carga de Trabalho', riskLevel: 6 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 3 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 4 },
+        ],
       },
     ],
   },
@@ -151,6 +204,48 @@ const MOCK_HEALTH_DATA: Record<string, UserHealthData> = {
         title: 'Apoio Disponível',
         description:
           'Lembre o funcionário sobre os recursos de apoio psicológico disponíveis na empresa.',
+      },
+    ],
+    healthThemesByTeam: [
+      {
+        teamName: 'Desenvolvimento',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 4 },
+          { theme: 'Insatisfação com Salário', riskLevel: 5 },
+          { theme: 'Carga de Trabalho', riskLevel: 6 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 3 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 4 },
+        ],
+      },
+      {
+        teamName: 'Marketing',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 5 },
+          { theme: 'Insatisfação com Salário', riskLevel: 6 },
+          { theme: 'Carga de Trabalho', riskLevel: 7 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 4 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 5 },
+        ],
+      },
+      {
+        teamName: 'Vendas',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 3 },
+          { theme: 'Insatisfação com Salário', riskLevel: 4 },
+          { theme: 'Carga de Trabalho', riskLevel: 5 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 2 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 3 },
+        ],
+      },
+      {
+        teamName: 'Suporte',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 6 },
+          { theme: 'Insatisfação com Salário', riskLevel: 7 },
+          { theme: 'Carga de Trabalho', riskLevel: 8 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 5 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 6 },
+        ],
       },
     ],
   },
@@ -213,6 +308,48 @@ const MOCK_HEALTH_DATA: Record<string, UserHealthData> = {
         title: 'Reunião com Gestão',
         description:
           'Agendar reunião urgente com gestor para revisar carga de trabalho e ambiente.',
+      },
+    ],
+    healthThemesByTeam: [
+      {
+        teamName: 'Desenvolvimento',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 7 },
+          { theme: 'Insatisfação com Salário', riskLevel: 8 },
+          { theme: 'Carga de Trabalho', riskLevel: 9 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 6 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 7 },
+        ],
+      },
+      {
+        teamName: 'Marketing',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 8 },
+          { theme: 'Insatisfação com Salário', riskLevel: 9 },
+          { theme: 'Carga de Trabalho', riskLevel: 10 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 7 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 8 },
+        ],
+      },
+      {
+        teamName: 'Vendas',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 6 },
+          { theme: 'Insatisfação com Salário', riskLevel: 7 },
+          { theme: 'Carga de Trabalho', riskLevel: 8 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 5 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 6 },
+        ],
+      },
+      {
+        teamName: 'Suporte',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: 9 },
+          { theme: 'Insatisfação com Salário', riskLevel: 10 },
+          { theme: 'Carga de Trabalho', riskLevel: 10 },
+          { theme: 'Ambiente de Trabalho', riskLevel: 8 },
+          { theme: 'Relacionamento com Gestão', riskLevel: 9 },
+        ],
       },
     ],
   },
@@ -305,6 +442,48 @@ function generateRandomHealthData(userId: string): UserHealthData {
       },
     ],
     alertLevel,
+    healthThemesByTeam: [
+      {
+        teamName: 'Desenvolvimento',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: Math.floor(Math.random() * 5) + 1 },
+          { theme: 'Insatisfação com Salário', riskLevel: Math.floor(Math.random() * 5) + 1 },
+          { theme: 'Carga de Trabalho', riskLevel: Math.floor(Math.random() * 5) + 2 },
+          { theme: 'Ambiente de Trabalho', riskLevel: Math.floor(Math.random() * 4) + 1 },
+          { theme: 'Relacionamento com Gestão', riskLevel: Math.floor(Math.random() * 4) + 1 },
+        ],
+      },
+      {
+        teamName: 'Marketing',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: Math.floor(Math.random() * 5) + 2 },
+          { theme: 'Insatisfação com Salário', riskLevel: Math.floor(Math.random() * 5) + 2 },
+          { theme: 'Carga de Trabalho', riskLevel: Math.floor(Math.random() * 6) + 2 },
+          { theme: 'Ambiente de Trabalho', riskLevel: Math.floor(Math.random() * 4) + 1 },
+          { theme: 'Relacionamento com Gestão', riskLevel: Math.floor(Math.random() * 5) + 1 },
+        ],
+      },
+      {
+        teamName: 'Vendas',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: Math.floor(Math.random() * 4) + 1 },
+          { theme: 'Insatisfação com Salário', riskLevel: Math.floor(Math.random() * 5) + 1 },
+          { theme: 'Carga de Trabalho', riskLevel: Math.floor(Math.random() * 5) + 2 },
+          { theme: 'Ambiente de Trabalho', riskLevel: Math.floor(Math.random() * 3) + 1 },
+          { theme: 'Relacionamento com Gestão', riskLevel: Math.floor(Math.random() * 4) + 1 },
+        ],
+      },
+      {
+        teamName: 'Suporte',
+        themes: [
+          { theme: 'Insatisfação com Empresa', riskLevel: Math.floor(Math.random() * 6) + 3 },
+          { theme: 'Insatisfação com Salário', riskLevel: Math.floor(Math.random() * 6) + 3 },
+          { theme: 'Carga de Trabalho', riskLevel: Math.floor(Math.random() * 6) + 4 },
+          { theme: 'Ambiente de Trabalho', riskLevel: Math.floor(Math.random() * 5) + 2 },
+          { theme: 'Relacionamento com Gestão', riskLevel: Math.floor(Math.random() * 5) + 2 },
+        ],
+      },
+    ],
   };
 }
 

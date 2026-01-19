@@ -19,6 +19,7 @@ import { AppFeatured } from '../app-featured';
 import { AppNewInvoice } from '../app-new-invoice';
 import { AppTopAuthors } from '../app-top-authors';
 import { AppWidgetSummary } from '../app-widget-summary';
+import { AppHealthThemes } from '../app-health-themes';
 import { AppCurrentDownload } from '../app-current-download';
 import { AppTopInstalledCountries } from '../app-top-installed-countries';
 
@@ -78,11 +79,72 @@ export function OverviewAppView() {
           <AppWidgetSummary
             title="Taxa de Resposta"
             percent={3.7}
-            total={89}
+            total="89%"
             chart={{
               colors: [theme.vars.palette.success.main],
               categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago'],
               series: [75, 78, 82, 84, 85, 87, 88, 89],
+            }}
+          />
+        </Grid>
+
+        <Grid xs={12} lg={8}>
+          <AppHealthThemes
+            title="Temas de Saúde Organizacional"
+            subheader="Análise de risco (0-10) por tema e time"
+            chart={{
+              teams: [
+                {
+                  teamName: 'Desenvolvimento',
+                  themes: [
+                    { theme: 'Insatisfação com Empresa', riskLevel: 3 },
+                    { theme: 'Insatisfação com Salário', riskLevel: 4 },
+                    { theme: 'Carga de Trabalho', riskLevel: 5 },
+                    { theme: 'Ambiente de Trabalho', riskLevel: 2 },
+                    { theme: 'Relacionamento com Gestão', riskLevel: 3 },
+                  ],
+                },
+                {
+                  teamName: 'Marketing',
+                  themes: [
+                    { theme: 'Insatisfação com Empresa', riskLevel: 4 },
+                    { theme: 'Insatisfação com Salário', riskLevel: 5 },
+                    { theme: 'Carga de Trabalho', riskLevel: 6 },
+                    { theme: 'Ambiente de Trabalho', riskLevel: 3 },
+                    { theme: 'Relacionamento com Gestão', riskLevel: 4 },
+                  ],
+                },
+                {
+                  teamName: 'Vendas',
+                  themes: [
+                    { theme: 'Insatisfação com Empresa', riskLevel: 2 },
+                    { theme: 'Insatisfação com Salário', riskLevel: 3 },
+                    { theme: 'Carga de Trabalho', riskLevel: 4 },
+                    { theme: 'Ambiente de Trabalho', riskLevel: 2 },
+                    { theme: 'Relacionamento com Gestão', riskLevel: 2 },
+                  ],
+                },
+                {
+                  teamName: 'Suporte',
+                  themes: [
+                    { theme: 'Insatisfação com Empresa', riskLevel: 6 },
+                    { theme: 'Insatisfação com Salário', riskLevel: 7 },
+                    { theme: 'Carga de Trabalho', riskLevel: 8 },
+                    { theme: 'Ambiente de Trabalho', riskLevel: 5 },
+                    { theme: 'Relacionamento com Gestão', riskLevel: 6 },
+                  ],
+                },
+                {
+                  teamName: 'RH',
+                  themes: [
+                    { theme: 'Insatisfação com Empresa', riskLevel: 3 },
+                    { theme: 'Insatisfação com Salário', riskLevel: 4 },
+                    { theme: 'Carga de Trabalho', riskLevel: 5 },
+                    { theme: 'Ambiente de Trabalho', riskLevel: 2 },
+                    { theme: 'Relacionamento com Gestão', riskLevel: 3 },
+                  ],
+                },
+              ],
             }}
           />
         </Grid>

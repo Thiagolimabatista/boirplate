@@ -1,5 +1,6 @@
 import type { IUserItem } from 'src/types/user';
 
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
@@ -7,6 +8,10 @@ import Stack from '@mui/material/Stack';
 import Dialog from '@mui/material/Dialog';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import Typography from '@mui/material/Typography';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -29,6 +34,28 @@ type Props = {
 
 export function UserHealthDialog({ open, onClose, user }: Props) {
   const healthData = getUserHealthData(user.id);
+  const [selectedTeam, setSelectedTeam] = useState<string>('Todos');
+
+  // Obter todos os times disponíveis
+  const allTeams = ['Todos', ...healthData.healthThemesByTeam.map((team) => team.teamName)];
+
+  // Filtrar dados baseado no time selecionado
+  const getFilteredThemes = () => {
+    if (selectedTeam === 'Todos') {
+      // Calcular média de todos os times
+      const allThemes = healthData.healthThemesByTeam[0].themes.map((theme) => theme.theme);
+      return allThemes.map((themeName) => {
+        const avgRisk =
+          healthData.healthThemesByTeam.reduce((sum, team) => {
+            const themeData = team.themes.find((t) => t.theme === themeName);
+            return sum + (themeData?.riskLevel || 0);
+          }, 0) / healthData.healthThemesByTeam.length;
+        return { theme: themeName, riskLevel: Math.round(avgRisk * 10) / 10 };
+      });
+    }
+    const teamData = healthData.healthThemesByTeam.find((team) => team.teamName === selectedTeam);
+    return teamData?.themes || [];
+  };
 
   const sentimentChartOptions = useChart({
     chart: { sparkline: { enabled: true } },
@@ -113,6 +140,61 @@ export function UserHealthDialog({ open, onClose, user }: Props) {
     },
   });
 
+  const healthThemesChartOptions = useChart({
+    chart: {
+      type: 'line',
+      sparkline: { enabled: false },
+      toolbar: { show: false },
+    },
+    colors: ['#FF5630'],
+    stroke: {
+      width: 3,
+      curve: 'smooth',
+    },
+    markers: {
+      size: 6,
+      colors: ['#fff'],
+      strokeColors: '#FF5630',
+      strokeWidth: 2,
+      hover: {
+        size: 8,
+      },
+    },
+    xaxis: {
+      categories: getFilteredThemes().map((theme) => theme.theme),
+      labels: {
+        style: {
+          colors: '#637381',
+          fontSize: '11px',
+        },
+        rotate: -45,
+        rotateAlways: true,
+      },
+    },
+    yaxis: {
+      min: 0,
+      max: 10,
+      tickAmount: 5,
+      title: { text: 'Nível de Risco' },
+      labels: {
+        style: {
+          colors: '#637381',
+          fontSize: '12px',
+        },
+        formatter: (val: number) => val.toFixed(0),
+      },
+    },
+    grid: {
+      borderColor: '#f1f1f1',
+      strokeDashArray: 3,
+    },
+    tooltip: {
+      y: {
+        formatter: (val: number) => `Risco: ${val.toFixed(1)}/10`,
+      },
+    },
+  });
+
   const renderAlertLevel = () => {
     const { level, color, icon } = healthData.alertLevel;
     return (
@@ -163,10 +245,15 @@ export function UserHealthDialog({ open, onClose, user }: Props) {
 
       <Grid item xs={6}>
         <Card sx={{ p: 3, textAlign: 'center' }}>
-          <Typography variant="h3" sx={{ mb: 1, color: 'success.main' }}>
-            {healthData.responseRate}%
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          <Stack direction="row" alignItems="baseline" justifyContent="center" spacing={0.5}>
+            <Typography variant="h3" sx={{ color: 'success.main' }}>
+              {healthData.responseRate}
+            </Typography>
+            <Typography variant="h5" sx={{ color: 'success.main', mb: 0.5 }}>
+              %
+            </Typography>
+          </Stack>
+          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
             Taxa de Resposta
           </Typography>
           <Typography variant="caption" sx={{ color: 'text.disabled', display: 'block', mt: 1 }}>
@@ -259,6 +346,42 @@ export function UserHealthDialog({ open, onClose, user }: Props) {
         </Card>
       </Grid>
     </Grid>
+  );
+
+  const renderHealthThemes = () => (
+    <Card sx={{ p: 3, mb: 3 }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 3 }}>
+        <Typography variant="h6">Temas de Saúde por Time</Typography>
+        <FormControl size="small" sx={{ minWidth: 180 }}>
+          <InputLabel>Filtrar por Time</InputLabel>
+          <Select
+            value={selectedTeam}
+            label="Filtrar por Time"
+            onChange={(e) => setSelectedTeam(e.target.value)}
+          >
+            {allTeams.map((team) => (
+              <MenuItem key={team} value={team}>
+                {team}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Stack>
+      <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
+        Análise de risco (0-10) para diferentes temas de saúde organizacional
+      </Typography>
+      <Chart
+        type="line"
+        series={[
+          {
+            name: 'Nível de Risco',
+            data: getFilteredThemes().map((theme) => theme.riskLevel),
+          },
+        ]}
+        options={healthThemesChartOptions}
+        height={320}
+      />
+    </Card>
   );
 
   const renderTopics = () => (
@@ -354,6 +477,7 @@ export function UserHealthDialog({ open, onClose, user }: Props) {
         {renderAlertLevel()}
         {renderStats()}
         {renderSentiment()}
+        {renderHealthThemes()}
         {renderTopics()}
         {renderRecommendations()}
       </DialogContent>

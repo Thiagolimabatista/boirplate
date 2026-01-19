@@ -14,7 +14,7 @@ import { Chart, useChart } from 'src/components/chart';
 
 type Props = CardProps & {
   title: string;
-  total: number;
+  total: number | string;
   percent: number;
   chart: {
     colors?: string[];
@@ -75,7 +75,9 @@ export function AppWidgetSummary({ title, percent, total, chart, sx, ...other }:
     >
       <Box sx={{ flexGrow: 1 }}>
         <Box sx={{ typography: 'subtitle2' }}>{title}</Box>
-        <Box sx={{ mt: 1.5, mb: 1, typography: 'h3' }}>{fNumber(total)}</Box>
+        <Box sx={{ mt: 1.5, mb: 1, typography: 'h3' }}>
+          {typeof total === 'string' ? total : fNumber(total)}
+        </Box>
         {renderTrending}
       </Box>
 
